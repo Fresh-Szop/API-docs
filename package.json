@@ -1,0 +1,11 @@
+{
+	"name": "api-docs",
+	"type": "module",
+	"scripts": {
+		"emit": "npx @redocly/cli build-docs openapi.yaml -o=index.html",
+		"open": "open index.html"
+	},
+	"devDependencies": {
+		"open": "^10.1.0"
+	}
+}
