@@ -10,7 +10,7 @@ info:
         Please don't download OpenAPI specs from button above - it uses custom 
         functionalities and won't work with codegens.
     x-logo:
-        url: ./logo_nobg.png
+        url: ./logo_api.jpeg
         altText: Fresh-Szop logo
     x-meta:
         image: ./logo.png
@@ -215,7 +215,7 @@ paths:
             #         $ref: ./samples/users-get.js
     /products:
         get:
-            summary: Get Products
+            summary: List Products
             description: |
                 Returns list of products (and their data) in paginated form.
 
@@ -368,7 +368,68 @@ paths:
             #       label: JS
             #       source:
             #         $ref: ./samples/products-get.js
+    /products/{productId}:
+        get:
+            summary: Get Product Data
+            description: |
+                Returns full data of given product.
+            tags:
+                - Product
+            parameters:
+                - in: header
+                  name: X-TimeTravel-Month
+                  schema:
+                    type: integer
+                    minimum: 1
+                    maximum: 12
+                  description: |
+                    Parameter that allows changing month that prices (or sometimes availability)
+                    are retrieved for.
+                    
+                    Defaults to current month of server date.
+                - in: path
+                  name: productId
+                  schema:
+                    type: number
+                  required: true
+                  description: |
+                    Identifier of product.
 
+                    Must be id of existing product.
+            responses:
+                "200":
+                    x-summary: Product retrieved
+                    description: |
+                        Returns full data of product.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                            example:
+                                $ref: "#/components/examples/Product"
+                "400":
+                    x-summary: Bad request
+                    description: |
+                        Required parameters are missing, or in wrong data type/format.
+
+                        Returns error message.
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                "404":
+                    x-summary: Product not found
+                    description: |
+                        No product was found for given id.
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+            # x-codeSamples:
+            #     - lang: JavaScript
+            #       label: JS
+            #       source:
+            #         $ref: ./samples/products-get.js
 components:
     schemas: 
         User:
@@ -463,8 +524,39 @@ components:
                         - ingredients
                     description: |
                         Category to which product belongs.
+                unit:
+                    type: string
+                    description: |
+                        Describes unit in which product is being sold.
+
+                        This would be either 1 item (`"szt."`) or exact weight
+                        for items that have small size (like berries, which usually
+                        have unit of `"125g"`` etc.).
                 avgUnitWeight:
-                    
+                    type: number
+                    description: |
+                        This is average weight of one unit of product - represented
+                        as kilograms.
+
+                        For exact units, it reflects directly same number (`"125g"`
+                        has average unit weight of 0.125 [kg]). For item (`"szt."`)
+                        units, this reflects statistical average weight of one item.
+
+                        This data should not be displayed to the user, however dividing
+                        price by this value can give price-per-kilogram, which probably
+                        should be shown.
+                typicalUnitWight:
+                    type: string
+                    description: |
+                        This is human-readable description of expected range of weight
+                        of products, that have unit of item (`"szt."`).
+
+                        It usually is formatted as `"${min}-${max}g` or `"${min}-${max}kg`
+                        and as a human-friendly representation can be shown to the client.
+                availableUnits:
+                    type: number
+                    description: |
+                        Exact number of units currently available in warehouse.
                 basePrice:
                     type: number
                     minimum: 0.01
@@ -485,6 +577,16 @@ components:
                         Discount percentage (as 0..1 float).
                         
                         If present, then `discountedPrice` will be present as well.
+                isSeason:
+                    type: boolean
+                    description: |
+                        Indicates whether products is currently available as seasonal
+                        product.
+
+                        Some products might be generally available and thus will
+                        never be seasonally available; at the same time, most seasonal
+                        products are still available all-year-round, they are just imported
+                        or greenhouse-grown.
                 description:
                     type: string
                     description: |
@@ -494,7 +596,11 @@ components:
                 - productName
                 - producer
                 - category
+                - unit
+                - avgUnitWeight
+                - availableUnits
                 - basePrice
+                - isSeason
                 - description
         PagesCursor:
             type: object

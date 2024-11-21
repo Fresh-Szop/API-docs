@@ -1,0 +1,7 @@
+theme:
+  openapi:
+    theme:
+      sidebar:
+        activeBgColor: "#fee1a9"
+        activeTextColor: "#502c36"
+        backgroundColor: "#fecc76"
