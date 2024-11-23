@@ -458,7 +458,7 @@ components:
                 products:
                     type: array
                     items:
-                        $ref: "#/components/schemas/SimpleProduct"
+                        $ref: "#/components/schemas/Product"
                 pages:
                     $ref: "#/components/schemas/PagesCursor"
         SimpleProduct:
@@ -494,6 +494,11 @@ components:
                         Discount percentage (as 0..1 float).
                         
                         If present, then `discountedPrice` will be present as well.
+                availableUnits:
+                    type: number
+                    description: |
+                        Exact number of units currently available in warehouse.
+                
             required:
                 - productId
                 - productName
@@ -528,10 +533,12 @@ components:
                     type: string
                     description: |
                         Describes unit in which product is being sold.
-
+                unitQuantity:
+                    type: number
+                    description: |
                         This would be either 1 item (`"szt."`) or exact weight
                         for items that have small size (like berries, which usually
-                        have unit of `"125g"`` etc.).
+                        have unit of `125` etc.).
                 avgUnitWeight:
                     type: number
                     description: |
@@ -597,6 +604,7 @@ components:
                 - producer
                 - category
                 - unit
+                - unitQuantity
                 - avgUnitWeight
                 - availableUnits
                 - basePrice
