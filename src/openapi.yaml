@@ -10,10 +10,10 @@ info:
         Please don't download OpenAPI specs from button above - it uses custom 
         functionalities and won't work with codegens.
     x-logo:
-        url: ../img/logo_api.jpeg
+        url: img/logo_api.jpeg
         altText: Fresh-Szop logo
     x-meta:
-        image: ../img/logo.png
+        image: img/logo.png
     license:
         name: GNU General Public License v3.0
         url: https://www.gnu.org/licenses/gpl-3.0.html
