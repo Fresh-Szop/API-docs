@@ -1,0 +1,42 @@
+type: object
+properties:
+    productId:
+        type: number
+        description: |
+            Product identifier.
+
+            Will never change.
+    productName:
+        type: string
+        description: |
+            Name of product.
+    basePrice:
+        type: number
+        minimum: 0.01
+        description: |
+            Base price of product, before applying discounts.
+    discountedPrice:
+        type: number
+        maximum: "basePrice"
+        description: |
+            Discounted price of product.
+            
+            If present, then `discount` will be present as well.
+    discount:
+        type: number
+        minimum: 0.0
+        maximum: 1.0
+        description: |
+            Discount percentage (as 0..1 float).
+            
+            If present, then `discountedPrice` will be present as well.
+    availableUnits:
+        type: number
+        description: |
+            Exact number of units currently available in warehouse.
+    
+required:
+    - productId
+    - productName
+    - basePrice
+    - description

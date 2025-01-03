@@ -1,0 +1,10 @@
+name: bearer
+description: |
+    JWT token stored in Cookie `bearer=`.
+    Life expectancy of this token is 1h.
+
+    This token will be renewed automatically using Cookie token `refresh=`.
+
+    For details see `/auth/google/finalize`.
+type: jwt
+in: cookie

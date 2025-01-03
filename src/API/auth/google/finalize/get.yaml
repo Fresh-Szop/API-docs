@@ -1,0 +1,85 @@
+summary: Finalize Google authentication
+tags:
+    - Authentication
+parameters:
+    - in: query
+      name: state
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: |
+        Parameter used for context to prevent XSS attacks, 
+        received from google auth flow.
+    - in: query
+      name: code
+      required: true
+      schema:
+        type: string
+      description: |
+        Token which allows server to authenticate google api,
+        received from google auth flow.
+    - in: cookie
+      name: magicToken
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 2137-69-be-ef-420
+      description: |
+        Cookie token that identifies auth flow session, received from `/auth/google`.
+responses:
+    "200":
+        x-summary: User authenticated
+        description: |
+            Finished auth handshake with google, updated or created
+            user.
+             
+            Returns user info (also available on /users) and jwt credential cookies.
+                 
+            **Keep in mind**, that refreshing credentials is not necessary - middleware
+            of any endpoint will renew them and swap jwt cookies, if `bearer` token
+            is expired, but refresh tokens is still not.
+        headers:
+            Set-Cookie:
+                description: |
+                    Sets two httpOnly cookies - containing JWT credentials;
+                    current and refresh tokens. 
+                schema:
+                    type: string
+                    example: "bearer=to.ke.n; HttpOnly, refresh=to.ke.n; HttpOnly"
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:User"
+                example:
+                    $ref: ":examples:/:User"
+    "400":
+        x-summary: Bad request
+        description: |
+            Required parameters are missing, or in wrong data type/format.
+             
+            Returns error message.
+        content:
+            text/plain:
+                schema:
+                    type: string
+    "401":
+        x-summary: Nonexistent `magicToken` or mismatched `state`
+        description: |
+            Received `magicToken` is not bound to any auth flow session, or `state` does
+            not match state send to google api.
+             
+            Returns error message.
+        content:
+            text/plain:
+                schema:
+                    type: string
+    "502":
+        x-summary: Error communicating with Google API.
+        description: |
+            Google API could not retrieve information about authenticated user.
+        content:
+            text/plain:
+                schema:
+                    type: string

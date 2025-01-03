@@ -1,0 +1,60 @@
+summary: Get Product Data
+description: |
+    Returns full data of given product.
+tags:
+    - Product
+parameters:
+    - in: header
+      name: X-TimeTravel-Month
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 12
+      description: |
+        Parameter that allows changing month that prices (or sometimes availability)
+        are retrieved for.
+        
+        Defaults to current month of server date.
+    - in: path
+      name: productId
+      schema:
+        type: number
+      required: true
+      description: |
+        Identifier of product.
+
+        Must be id of existing product.
+responses:
+    "200":
+        x-summary: Product retrieved
+        description: |
+            Returns full data of product.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:Product"
+                example:
+                    $ref: ":example:/:Product"
+    "400":
+        x-summary: Bad request
+        description: |
+            Required parameters are missing, or in wrong data type/format.
+
+            Returns error message.
+        content:
+            text/plain:
+                schema:
+                    type: string
+    "404":
+        x-summary: Product not found
+        description: |
+            No product was found for given id.
+        content:
+            text/plain:
+                schema:
+                    type: string
+# x-codeSamples:
+#     - lang: JavaScript
+#       label: JS
+#       source:
+#         $ref: ./samples/products-get.js

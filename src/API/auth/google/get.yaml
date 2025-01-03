@@ -1,0 +1,30 @@
+summary: Request Google Authentication
+description: |
+    This endpoint provides URL that allows to perform Google Auth Flow.
+
+    It is important, that this URL must must launched as a website - fetching
+    it from http client (like `fetch`) will always fail, because redirects
+    will be CORS-blocked. Response will also not make sense, as redirected
+    endpoint produces html website with auth form.
+tags: 
+    - Authentication
+responses:
+    "200":
+        x-summary: Generate auth entry
+        description: |
+            Returns time-limited URL that can be used to begin Google Auth Flow.
+        headers:
+            Set-Cookie:
+                description: |
+                    Sets httpOnly cookie - containing `magicToken` that identifies auth session.
+                    This token is used to store both Google Auth URL, as well as `state` checksum
+                    variable.
+                schema:
+                    type: string
+                    example: "magicToken=2137-69-be-ef-420; HttpOnly"
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:AuthUrl"
+                example:
+                    $ref: ":example:/:AuthUrl"

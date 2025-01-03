@@ -1,0 +1,8 @@
+x-summary: Wrong permission level
+description: |
+    Credentials specify role(s) that are not allowed to specified resources,
+    or don't have ones that are required for access.
+content:
+    text/plain:
+        schema:
+            type: string

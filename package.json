@@ -2,8 +2,8 @@
 	"name": "api-docs",
 	"type": "module",
 	"scripts": {
-		"emit": "npx @redocly/cli build-docs openapi.yaml -o=index.html",
-		"open": "open index.html"
+		"emit": "node emit_target.js && npx @redocly/cli build-docs .target/openapi.yaml -o=docs/index.html",
+		"open": "open docs/index.html"
 	},
 	"devDependencies": {
 		"open": "^10.1.0"

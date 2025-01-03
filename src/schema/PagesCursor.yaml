@@ -1,0 +1,18 @@
+type: object
+properties:
+    firstPage:
+        type: integer
+        description: |
+            Number of first page.
+
+            Pages are 1-indexed.
+    currentPage:
+        type: integer
+        description: |
+            Number of current page.
+    lastPage:
+        type: integer
+        description: |
+            Number of last page.
+
+            This also represents number of pages (due to 1-indexing).

@@ -1,0 +1,12 @@
+x-summary: Expired or missing credentials
+description: |
+    Credentials might be expired, or missing from Cookies (which also can happen,
+    if expired Cookie is removed by browser).
+
+    This error can also be produced while trying to check user status in Google API,
+    due to communication error, Google Auth token being expired, or user deleting their
+    account.
+content:
+    text/plain:
+        schema:
+            type: string

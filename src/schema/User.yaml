@@ -1,0 +1,19 @@
+type: object
+properties:
+    userId:
+        type: string
+        description: User ID
+    email:
+        type: string
+        format: email
+        description: User email
+    name:
+        type: string
+        description: User's first name
+    lastName:
+        type: string
+        description: User's last name
+    picture:
+        type: string
+        format: uri
+        description: URL to profile picture

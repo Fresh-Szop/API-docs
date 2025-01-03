@@ -1,0 +1,33 @@
+summary: 🔐 Get User Data
+description: |
+    Returns data of currently authenticated user.
+
+    This endpoint provides basic data that can be used for populating header.
+    It is exactly same data as returned by `/auth/google/finalize`.
+tags:
+    - User
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+responses:
+    "200":
+        x-summary: User retrieved
+        description: |
+            Returns user data by id encoded in JWT Credentials.
+
+            In theory, this call cannot fail because of user being not found.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:User"
+                example:
+                    $ref: ":example:/:User"
+    "401":
+        $ref: ":error:/:401"
+    "422":
+        $ref: ":error:/:422"
+# x-codeSamples:
+#     - lang: JavaScript
+#       label: JS
+#       source:
+#         $ref: ./samples/users-get.js

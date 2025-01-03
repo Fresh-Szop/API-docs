@@ -1,0 +1,11 @@
+name: refresh
+description:
+    JWT token stored in Cookie `refresh=`.
+    Life expectancy of this token is 7d 1h.
+
+    This token will be replaced automatically if refreshing is necessary.
+    Using same refresh token again will not be possible.
+
+    For details see `/auth/google/finalize`.
+type: jwt
+in: cookie

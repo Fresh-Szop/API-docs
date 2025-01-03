@@ -1,0 +1,13 @@
+type: object
+properties:
+    authLink:
+        type: string
+        format: uri
+        description: Google Auth Flow URL, cannot be fetched.
+    expires:
+        type: integer
+        format: UTC/ms
+        description: |
+            Timestamp of expiration date - `Date.now() + time.ms.minutes(10)`.
+
+            Currently not integrated.

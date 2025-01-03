@@ -1,0 +1,8 @@
+type: object
+properties:
+    products:
+        type: array
+        items:
+            $ref: ":schema:/:Product"
+    pages:
+        $ref: ":schema:/:PagesCursor"

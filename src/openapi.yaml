@@ -1,0 +1,57 @@
+openapi: 3.1.0
+servers:
+    - url: http://localhost:42069
+info:
+    title: Fresh-Szop API
+    version: 1.0.0
+    description: |
+        E-commerce platform selling fresh produce and other shelf-stable food items.
+
+        Please don't download OpenAPI specs from button above - it uses custom 
+        functionalities and won't work with codegens.
+    x-logo:
+        url: ../img/logo_api.jpeg
+        altText: Fresh-Szop logo
+    x-meta:
+        image: ../img/logo.png
+    license:
+        name: GNU General Public License v3.0
+        url: https://www.gnu.org/licenses/gpl-3.0.html
+
+paths:
+    /auth/google:
+        get:
+            $ref: ":API:/auth/google/:get"
+    /auth/google/{magicToken}:
+        get:
+            $ref: ":API:/auth/google/{magicToken}/:get"
+    /auth/google/finalize:
+        get:
+            $ref: ":API:/auth/google/finalize/:get"
+    /users:
+        get:
+            $ref: ":API:/users/:get"
+    /products:
+        get:
+            $ref: ":API:/products/:get"
+    /products/{productId}:
+        get:
+            $ref: ":API:/products/{productId}/:get"
+
+tags:
+    - name: Authentication
+      description: |
+        Flow that allows to authenticate user using google auth.
+
+        Please don't use this api directly and instead use:
+        ```js
+        import login from "@/utils/login"
+
+        const user = await login()
+        ```
+    - name: User
+      description: |
+        API that allows to retrieve, modify and delete information related to users.
+    - name: Product
+      description: |
+        API that allows to retrieve products.

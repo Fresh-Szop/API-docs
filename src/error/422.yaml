@@ -1,0 +1,9 @@
+x-summary: Malformed token
+description: |
+    JWT is valid and signed, but it contents deviates from expected one.
+
+    This might indicate API version mismatch, or XSS attack.
+content:
+    text/plain:
+        schema:
+            type: string
