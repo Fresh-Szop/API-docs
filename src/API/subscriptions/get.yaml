@@ -1,0 +1,18 @@
+summary: 🔐 List subscriptions
+description: |
+    🏗️ **TODO** 👷
+
+    Returns list of subscription overviews.
+
+    Allows filtering and sorting through query params,
+    as well as changing page size and forcing different month using X-* headers.    
+tags:
+    - Subscriptions
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+responses:
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"

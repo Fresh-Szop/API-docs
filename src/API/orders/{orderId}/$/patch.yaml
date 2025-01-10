@@ -1,0 +1,58 @@
+summary: 🫖 Update order status
+description: |
+    Updates status of given order.
+
+    Returns updated order overview.
+tags:
+    - Orders
+requestBody:
+    required: true
+    description: |
+        Order status must be updated to next status in lifetime.
+    content:
+        application/json:
+            schema:
+                type: object
+                properties:
+                    status:
+                        type: string
+                        enum:
+                            - Preparing
+                            - Sent
+                            - Delivered
+                required: status
+responses:
+    "200":
+        x-summary: Order updated
+        description: |
+            Order was updated to selected status.
+
+            Will fill appropriate dates as current date.
+
+            Returns new order overview.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:OrderOverview"
+    "400":
+        $ref: ":error:/:400"
+    "404":
+        x-summary: Order not found
+        description: |
+            No order was found for given id.
+        content:
+            text/plain:
+                schema:
+                    type: string
+    "422":
+        x-summary: Invalid parameter values
+        description: |
+            Required parameters are present and contain valid data, but
+            assertions are failed, for example when requested status is not **after**
+            (not necessarily directly) current status.
+
+            Returns error message.
+        content:
+            text/plain:
+                schema:
+                    type: string

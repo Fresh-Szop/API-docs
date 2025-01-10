@@ -1,0 +1,9 @@
+x-summary: Bad request
+description: |
+    Required parameters are missing, or in wrong data type/format.
+
+    Returns error message.
+content:
+    text/plain:
+        schema:
+            type: string

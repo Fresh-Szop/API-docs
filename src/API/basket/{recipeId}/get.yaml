@@ -1,0 +1,62 @@
+summary: 🔐 Get basket view for given recipe
+description: |
+    Returns product listing with selected quantities.
+
+    If given product is part of recipe, but not added to basket, it will simply
+    be retrieved with `basketQuantity == 0`.
+
+    Allows forcing different month prices using X-* headers.
+tags:
+    - Basket:Recipe
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+parameters:
+    - in: header
+      name: X-TimeTravel-Month
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 12
+      description: |
+        Parameter that allows changing month that prices (or sometimes availability)
+        are retrieved for.
+
+        Defaults to current month of server date.
+responses:
+    "200":
+        x-summary: Basket retrieved
+        description: |
+            Returns requested basket view.
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        products:
+                            type: array
+                            items:
+                                $ref: ":schema:/:BasketProduct"
+                            description: |
+                                Listing of products present in recipe. This listing will not contain
+                                products not preset in basket, if recipe lists them.
+    "400":
+        $ref: ":error:/:400"
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"
+    "409":
+        x-summary: Quantity conflict
+        description: |
+            Returns requested basket view with conflict list.
+
+            This error indicates that basket is still somewhat valid, but some products
+            might have reduced quantity - this usually happens when someone buys some
+            quantity of product which is in this basket and full quantity is not available.
+        content:
+            application/json:
+                schema:
+                    allOf:
+                        - $ref: ":schema:/:Basket"
+                        - $ref: ":schema:/:BasketConflicts"

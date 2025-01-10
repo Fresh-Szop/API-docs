@@ -1,0 +1,26 @@
+summary: 🔐 Returns address data
+description: |
+    Returns full data of given address.
+tags:
+    - Addresses
+responses:
+    "200": 
+        x-summary: Address retrieved
+        description: |
+            Returns full data of address.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:Address"
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"
+    "404":
+        x-summary: Address not found
+        description: |
+            No address was found for given name.
+        content:
+            text/plain:
+                schema:
+                    type: string

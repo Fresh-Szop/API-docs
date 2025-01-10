@@ -1,0 +1,26 @@
+summary: Get recipe data
+description: |
+    Returns full data of given recipe.
+tags:
+    - Recipes
+responses:
+    "200":
+        x-summary: Recipe retrieved
+        description: |
+            Returns full data of product.
+
+            List of ingredients will contain references to applicable products.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:Recipe"
+    "400":
+        $ref: ":error:/:400"
+    "404":
+        x-summary: Recipe not found
+        description: |
+            No Recipe was found for given id.
+        content:
+            text/plain:
+                schema:
+                    type: string

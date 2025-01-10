@@ -1,0 +1,13 @@
+type: object
+allOf:
+    - $ref: ":schema:/:FinalPrice"
+    - type: object
+      properties:
+        basketQuantity:
+            type: number
+            minimum: 0
+            description: |
+                Indicates how many units of this products are currently added to
+                the basket.
+      required:
+        - basketQuantity

@@ -1,0 +1,17 @@
+summary: 🔐 Delete subscription
+description: |
+    🏗️ **TODO** 👷
+    
+    Removes subscription, canceling all future orders that have not yet placed from
+    this subscription.
+tags:
+    - Subscriptions
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+responses:
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"
+

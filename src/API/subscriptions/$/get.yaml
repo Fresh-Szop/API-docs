@@ -1,0 +1,8 @@
+summary: 🫖 Get list of all subscription
+description: |
+    🏗️ **TODO** 👷
+
+    Returns list of subscriptions id, their frequency and next order date for all users.
+tags:
+    - Subscriptions
+responses:

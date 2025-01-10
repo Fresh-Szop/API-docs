@@ -1,0 +1,46 @@
+type: object
+properties:
+    addressName:
+        type: string
+        description: |
+            Descriptive name of address - this name will be used in selections by user
+            and as such it must be unique and not used by any other address.
+    firstName:
+        type: string
+        description: |
+            First name of delivery recipient.
+    lastName:
+        type: string
+        description: |
+            Last name of delivery recipient.
+    firstAddressLine:
+        type: string
+        description: |
+            First line of address - usually street or town name with building number.
+    secondAddressLine:
+        type: string
+        description: |
+            Second line of address - if applicable, usually apartment number and other
+            specificity descriptors.
+    postalCode:
+        type: string
+        format: /\d{2}-\d{3}/
+        description: |
+            Postal code.
+
+            Only regex format of code is checked - actual validity is users responsibility.
+    postalCity:
+        type: string
+        description: |
+            Postal city.
+
+            Often this can now copy town name from `firstAddressLine`, if street names are
+            not assigned.
+    phoneNumber:
+        type: string
+        format: /\d{9}/
+        description: |
+            Phone number.
+
+            Should be legal polish phone number. In response objects, it might be prepended
+            with country code (+48) and formatted according to cellular/line number format.

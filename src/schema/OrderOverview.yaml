@@ -1,0 +1,36 @@
+type: object
+properties:
+    orderId:
+        type: number
+        description: |
+            Order identifier.
+
+            Will never change.
+    updateDate:
+        type: string
+        format: date
+        description: |
+            Date of last order update.
+
+            This will be `orderDate`, `preparationDate`, `sentDate` or `deliveredDate`
+            (most recent one).
+    finalDiscountedPrice:
+        type: number
+        description: |
+            Final price of all products **after** applying discounts.
+    status:
+        type: string
+        enum:
+            - Placed
+            - Preparing
+            - Sent
+            - Delivered
+        description: |
+            Describes status of order.
+
+            Enum values above are ordered in chronological order of order lifetime.
+required:
+    - orderId
+    - updateDate
+    - finalDiscountedPrice
+    - status

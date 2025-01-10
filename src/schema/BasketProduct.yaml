@@ -1,0 +1,4 @@
+type: object
+allOf:
+    - $ref: ":schema:/:Product"
+    - $ref: ":schema:/:FinalPrice"

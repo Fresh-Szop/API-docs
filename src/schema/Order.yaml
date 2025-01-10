@@ -1,0 +1,21 @@
+type: object
+allOf:
+    - $ref: ":schema:/:OrderOverview"
+    - type: object
+      properties:
+        address:
+            $ref: ":schema:/:Address"
+        products:
+            type: array
+            items:
+                $ref: ":schema:/:BasketProduct"
+            description: |
+                Listing of products present in order.
+        finalBasePrice:
+            type: number
+            description: |
+                Final price of all products **before** applying discounts.
+      required:
+        - address
+        - products
+        - finalBasePrice

@@ -1,4 +1,4 @@
-summary: Request Google Authentication
+summary: Request Google authentication
 description: |
     This endpoint provides URL that allows to perform Google Auth Flow.
 

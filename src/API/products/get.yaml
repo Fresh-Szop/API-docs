@@ -1,11 +1,19 @@
-summary: List Products
+summary: 🔓  List products
 description: |
     Returns list of products (and their data) in paginated form.
 
     Allows filtering and sorting through query params,
     as well as changing page size and forcing different month using X-* headers.
+
+    **Important**: this endpoint does not require authentication, however it uses
+    it for additional features. If no valid auth cookies are passed, then  `basketQuantity`
+    property will be missing.
 tags:
-    - Product
+    - Products
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+    - {}
 parameters:
     - in: header
       name: X-TimeTravel-Month
@@ -16,7 +24,7 @@ parameters:
       description: |
         Parameter that allows changing month that prices (or sometimes availability)
         are retrieved for.
-        
+
         Defaults to current month of server date.
     - in: query
       name: order
@@ -94,6 +102,10 @@ parameters:
         type: number
         minimum: 1
         maximum: "response.body.pages.lastPage"
+      description: |
+        Number of requested page.
+
+        Defaults to 1.
     - in: query
       name: page-size
       required: false
@@ -106,12 +118,11 @@ parameters:
         (changing it on page > 1 will return first page in new pagination scheme).
 
         Defaults to 10.
-    
 responses:
     "200":
         x-summary: Products retrieved
         description: |
-            Returns list of products that correspond to specified filters,
+            Returns list of products that correspond to specified filters
             and "cursor" representation.
 
             List of products will not contain more than `request.headers.X-Page-Size`,
@@ -124,31 +135,22 @@ responses:
                 example:
                     $ref: ":example:/:ProductList"
     "400":
-        x-summary: Bad request
+        $ref: ":error:/:400"
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"
+    "422":
+        x-summary: Invalid parameter values
         description: |
-            Required parameters are missing, or in wrong data type/format.
+            Required parameters are present and contain valid data, but
+            assertions are failed, for example when:
+
+            - `query.price-min` > `query.price-max`,
+            - `query.page` > `response.body.pages.lastPage`.
 
             Returns error message.
         content:
             text/plain:
                 schema:
                     type: string
-    "422":
-        x-summary: Invalid parameter values
-        description: |
-            Required parameters are present and contain valid data, but
-            assertions are failed, for example when:
-                
-            - `query.price-min` > `query.price-max`,
-            - `query.page` > `response.body.pages.lastPage`.
-            
-            Returns error message.
-        content:
-            text/plain:
-                schema:
-                    type: string
-# x-codeSamples:
-#     - lang: JavaScript
-#       label: JS
-#       source:
-#         $ref: ./samples/products-get.js

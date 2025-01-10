@@ -1,0 +1,8 @@
+summary: 🫖 Force subscription tick
+description: |
+    🏗️ **TODO** 👷
+    
+    Forces ticking all subscription, tricking server into specific date.
+tags:
+    - Subscriptions
+responses:

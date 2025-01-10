@@ -1,11 +1,11 @@
 type: object
 properties:
-    products:
+    recipes:
         type: array
         items:
-            $ref: ":schema:/:Product"
+            $ref: ":schema:/:RecipeOverview"
     pages:
         $ref: ":schema:/:PagesCursor"
 required:
-    - products
+    - recipes
     - pages

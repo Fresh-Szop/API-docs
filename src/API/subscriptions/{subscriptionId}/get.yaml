@@ -1,0 +1,16 @@
+summary: 🔐 Get subscription data
+description: |
+    🏗️ **TODO** 👷
+    
+    Returns full data of subscription.
+tags:
+    - Subscriptions
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+responses:
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"
+

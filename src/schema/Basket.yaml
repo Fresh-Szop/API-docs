@@ -1,0 +1,26 @@
+type: object
+properties:
+    products:
+        type: array
+        items:
+            $ref: ":schema:/:BasketProduct"
+        description: |
+            Listing of products present in basket. This listing will not contain
+            products that `basketQuantity == 0`.
+
+            This property will be missing if `omit-listing=true` is passed in query.
+    summary:
+        type: object
+        allOf:
+            - $ref: ":schema:/:FinalPrice"
+            - type: object
+              properties:
+                  basketQuantity:
+                      type: number
+                      minimum: 0
+                      description:
+                          Number of product units added to the basket.
+        description: |
+            Summary of entire basket.
+required:
+    - summary

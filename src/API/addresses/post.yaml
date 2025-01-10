@@ -1,0 +1,40 @@
+summary: 🔐 Create new address
+description: |
+    Creates new address for user.
+tags:
+    - Addresses
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+requestBody:
+    required: true
+    description: |
+        Address is identified by `addressName`↔`userId` pair - as such, posted `addressName`
+        must be unique for given user and not yet represent existing address.
+    content:
+        application/json:
+            schema:
+                $ref: ":schema:/:Address"
+responses:
+    "201":
+        x-summary: Address created
+        description: |
+            Returns posted address in same form.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:Address"
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"
+    "409":
+        x-summary: Address name conflict
+        description: |
+            Indicates that selected address name is already used for this user.
+
+            Returns conflicting address data.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:Address"

@@ -1,0 +1,126 @@
+summary: List recipes
+description: |
+    Returns list of recipe overviews in paginated form.
+
+    Allows filtering and sorting through query params,
+    as well as changing page size.
+tags:
+    - Recipes
+parameters:
+    - in: query
+      name: order
+      schema:
+        type: string
+        enum:
+            - difficulty-asc
+            - difficulty-desc
+            - name-asc
+            - name-desc
+      required: false
+      description: |
+        Parameters that controls order in which products are returned.
+        Difficulty ordering uses number of steps as second key.
+
+        Defaults to `name-asc`.
+    - in: query
+      name: category
+      schema:
+        type: array
+        items:
+            type: string
+            enum:
+                - desserts
+                - sides
+                - soups
+                - meals
+                - salads
+      required: false
+      style: form
+      exploded: true
+      description: |
+        Filters on category of products. Accepts multiple categories via parameter
+        duplication, ie:
+        ```http
+        GET http://…/recipes?category=sides&category=soups
+        Accept: application/json
+        ```
+
+        If missing, does not filter on category.
+    - in: query
+      name: difficulty-min
+      schema:
+        type: number
+        enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        maximum: "difficulty-max"
+      required: false
+      description: |
+        Filters on minimum difficulty.
+
+        There must exist relationship between `difficulty-min <= difficulty-max`,
+        if both are present.
+    - in: query
+      name: difficulty-max
+      schema:
+        type: number
+        enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        minimum: "difficulty-min"
+      required: false
+      description: |
+        Filters on maximum difficulty.
+
+        There must exist relationship between `difficulty-min <= difficulty-max`,
+        if both are present.
+    - in: query
+      name: page
+      schema:
+        type: number
+        minimum: 1
+        maximum: "response.body.pages.lastPage"
+    - in: query
+      name: page-size
+      required: false
+      schema:
+        type: integer
+        minimum: 5
+        maximum: 90
+      description: |
+        Parameter that allows changing default page size
+        (changing it on page > 1 will return first page in new pagination scheme).
+
+        Defaults to 10.
+responses:
+    "200":
+        x-summary: Recipes retrieved
+        description:
+            Returns listing of recipes that correspond to specified filters,
+            without their details and "cursor" representation.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:RecipeList"
+    "400":
+        $ref: ":error:/:400"
+    "422":
+        x-summary: Invalid parameter values
+        description: |
+            Required parameters are present and contain valid data, but
+            assertions are failed, for example when:
+
+            - `query.difficulty-min` > `query.difficulty-max`,
+            - `query.page` > `response.body.pages.lastPage`.
+
+            Returns error message.
+        content:
+            text/plain:
+                schema:
+                    type: string

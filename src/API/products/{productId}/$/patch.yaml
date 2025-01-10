@@ -1,28 +1,9 @@
-summary: 🔓 Get product data
+summary: 🫖 Update product quantity
 description: |
-    Returns full data of given product.
-
-    **Important**: this endpoint does not require authentication, however it uses
-    it for additional features. If no valid auth cookies are passed, then  `basketQuantity`
-    property will be missing.
+    Returns full, updated data of given product.
 tags:
     - Products
-security:
-    - jwtBearerCookie: [user]
-      jwtRefreshCookie: [user]
-    - {}
 parameters:
-    - in: header
-      name: X-TimeTravel-Month
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 12
-      description: |
-        Parameter that allows changing month that prices (or sometimes availability)
-        are retrieved for.
-
-        Defaults to current month of server date.
     - in: path
       name: productId
       schema:
@@ -32,6 +13,20 @@ parameters:
         Identifier of product.
 
         Must be id of existing product.
+requestBody:
+    required: true
+    content:
+        application/json:
+            schema:
+                type: object
+                properties:
+                    availableUnits:
+                        type: number
+                        minimum: 0
+                        description: |
+                            Exact number of units that should be available in warehouse.
+                required:
+                    - availableUnits
 responses:
     "200":
         x-summary: Product retrieved
@@ -45,10 +40,6 @@ responses:
                     $ref: ":example:/:Product"
     "400":
         $ref: ":error:/:400"
-    "401":
-        $ref: ":error:/:401"
-    "417":
-        $ref: ":error:/:417"
     "404":
         x-summary: Product not found
         description: |

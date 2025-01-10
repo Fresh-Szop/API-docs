@@ -1,0 +1,46 @@
+type: object
+properties:
+    recipeId:
+        type: number
+        description: |
+            Recipe identifier.
+
+            Will never change.
+    img:
+        type: string
+        format: url
+        description: |
+            Recipe image.
+
+            Might point to CDN (or separate container).
+    name:
+        type: string
+        description: |
+            Name of the recipe.
+    category:
+        type: string
+        enum:
+           - desserts
+           - sides
+           - soups
+           - meals
+           - salads
+        description:
+            Category of the recipe.
+    difficulty:
+        type: number
+        enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        description: |
+            Difficulty of the recipe. 1 is lowest difficulty.
+required:
+    - recipeId
+    - img
+    - name
+    - category
+    - difficulty
+    - ingredients

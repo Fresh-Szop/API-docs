@@ -1,0 +1,11 @@
+type: object
+allOf:
+    - $ref: ":schema:/:AddressFuzzy"
+required:
+    - addressName
+    - firstName
+    - lastName
+    - firstAddressLine
+    - postalCode
+    - postalCity
+    - phoneNumber

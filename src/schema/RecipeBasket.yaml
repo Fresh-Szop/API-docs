@@ -1,0 +1,10 @@
+type: object
+properties:
+    products:
+        type: array
+        items:
+            $ref: ":schema:/:BasketProduct"
+        description: |
+            Listing of products available in recipe. This listing will contain both
+            products that are in basket, as well as products that are present
+            in recipe, but not yet added - such products will have `basketQuantity == 0`.

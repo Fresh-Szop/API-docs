@@ -1,0 +1,13 @@
+type: object
+properties:
+    finalBasePrice:
+        type: number
+        description: |
+            Final price of all products **before** applying discounts.
+    finalDiscountedPrice:
+        type: number
+        description: |
+            Final price of all products **after** applying discounts.
+required:
+    - finalBasePrice
+    - finalDiscountedPrice

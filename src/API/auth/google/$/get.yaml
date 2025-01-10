@@ -1,0 +1,48 @@
+summary: 🫖 Request random debug user
+description: |
+    This endpoint simulates login to a random user - it returns one of
+    test/debug users that can be used in same way as normal user.
+tags:
+    - Authentication
+parameters:
+    - in: query
+      name: request-id
+      required: false
+      schema:
+        type: string
+        enum:
+            - $__1
+            - $__2
+            - $__3
+            - $__4
+            - $__5
+            - $__6
+            - $__7
+            - $__8
+            - $__9
+      description:
+        Parameter that allows to specify which of test users should be returned.
+
+        Defaults to random value.
+responses:
+    "200":
+        x-summary: User authenticated
+        description: |
+            Returns user info (also available on /users) and jwt credential cookies.
+
+            User has a non-existing userId that persists in database, and might
+            have a random information that never persisted properly.
+        headers:
+            Set-Cookie:
+                description: |
+                    Sets two httpOnly cookies - containing JWT credentials;
+                    current and refresh tokens. 
+                schema:
+                    type: string
+                    example: "bearer=to.ke.n; HttpOnly, refresh=to.ke.n; HttpOnly"
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:User"
+                example:
+                    $ref: ":example:/:User"

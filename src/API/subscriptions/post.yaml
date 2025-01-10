@@ -1,0 +1,23 @@
+summary: 🔐 Create subscription
+description: |
+    🏗️ **TODO** 👷
+
+    Creates subscription based on current basket contents.
+
+    Created subscription is not filled with order details and is inactive.
+
+    Unlike basket, it does not coerce quantities into available stock and will
+    error if requested quantities are not in stock, however unlike order, it does
+    not immediately take product from warehouse - subscription will be translated
+    to order when its frequency ticks (and can be with subscription activation),
+    and only then quantities will be evaluated.
+tags:
+    - Subscriptions
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+responses:
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"

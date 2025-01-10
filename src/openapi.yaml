@@ -19,6 +19,7 @@ info:
         url: https://www.gnu.org/licenses/gpl-3.0.html
 
 paths:
+    # Authentication
     /auth/google:
         get:
             $ref: ":API:/auth/google/:get"
@@ -28,16 +29,91 @@ paths:
     /auth/google/finalize:
         get:
             $ref: ":API:/auth/google/finalize/:get"
+    # Authentication @ Internal
+    /auth/google/$:
+        get:
+            $ref: ":API:/auth/google/$/:get"
+    # Users
     /users:
         get:
             $ref: ":API:/users/:get"
+    # Products
     /products:
         get:
             $ref: ":API:/products/:get"
     /products/{productId}:
         get:
             $ref: ":API:/products/{productId}/:get"
-
+    # Products @ Internal
+    /products/{productId}/$:
+        patch:
+            $ref: ":API:/products/{productId}/$/:patch"
+    # Basket
+    /basket:
+        get:
+            $ref: ":API:/basket/:get"
+    /basket/{productId}:
+        put:
+            $ref: ":API:/basket/{productId}/:put"
+        delete:
+            $ref: ":API:/basket/{productId}/:delete"
+    # Recipes
+    /recipes:
+        get:
+            $ref: ":API:/recipes/:get"
+    /recipes/{recipeId}:
+        get:
+            $ref: ":API:/recipes/{recipeId}/:get"
+    # Basket:Recipe
+    /basket/{recipeId}:
+        get:
+            $ref: ":API:/basket/{recipeId}/:get"
+    # Addresses
+    /addresses:
+        get:
+            $ref: ":API:/addresses/:get"
+        post:
+            $ref: ":API:/addresses/:post"
+    /addresses/{addressName}:
+        get:
+            $ref: ":API:/addresses/{addressName}/:get"
+        patch:
+            $ref: ":API:/addresses/{addressName}/:patch"
+        delete:
+            $ref: ":API:/addresses/{addressName}/:delete"
+    # Orders
+    /orders:
+        post:
+            $ref: ":API:/orders/:post"
+        get:
+            $ref: ":API:/orders/:get"
+    /orders/{orderId}:
+        get:
+            $ref: ":API:/orders/{orderId}/:get"
+    # Orders @ Internal
+    /orders/{orderId}/$:
+        patch:
+            $ref: ":API:/orders/{orderId}/$/:patch"
+    # Subscriptions
+    /subscriptions:
+        post:
+            $ref: ":API:/subscriptions/:post"
+        get:
+            $ref: ":API:/subscriptions/:get"
+    /subscriptions/{subscriptionId}:
+        get:
+            $ref: ":API:/subscriptions/{subscriptionId}/:get"
+        patch:
+            $ref: ":API:/subscriptions/{subscriptionId}/:patch"
+        delete:
+            $ref: ":API:/subscriptions/{subscriptionId}/:delete"
+    # Subscriptions @ Internal
+    /subscriptions/$:
+        get:
+            $ref: ":API:/subscriptions/$/:get"
+    /subscriptions/{subscriptionId}/$:
+        post:
+            $ref: ":API:/subscriptions/{subscriptionId}/$/:post"
 tags:
     - name: Authentication
       description: |
@@ -49,9 +125,54 @@ tags:
 
         const user = await login()
         ```
-    - name: User
+
+        ---
+    - name: Users
       description: |
         API that allows to retrieve, modify and delete information related to users.
-    - name: Product
+        
+        ---
+    - name: Products
       description: |
         API that allows to retrieve products.
+        
+        ---
+    - name: Basket
+      description: |
+        API that allows to retrieve and modify contents of basket for user.
+        
+        Each user has only one basket, that can be used either to place orders,
+        or create new subscriptions - both actions will clear basket afterwards.
+        
+        It is important to note that while basket quantities are limited by warehouse,
+        they are not guaranteed, as adding product to basket does not make product
+        reserved for specific user - quantities can be force-changed during modification
+        calls when warehouse quantity shrinks due to other users placing orders,
+        and final quantities are evaluated while processing order placement.
+
+        ---
+    - name: Recipes
+      description: |
+        API that allows to retrieve recipe contents.
+        
+        ---
+    - name: Basket:Recipe
+      description: |
+        API that allows to retrieve basket view, that represents specific recipe.
+        
+        ---
+    - name: Addresses
+      description: |
+        API that allows to retrieve, modify and delete addresses for user.
+        
+        ---
+    - name: Orders
+      description: |
+        API that allows to place orders, and retrieve them for user.
+        
+        ---
+    - name: Subscriptions
+      description: |
+        API that allows creating, retrieving, modifying and deleting subscriptions for user.
+        
+        ---

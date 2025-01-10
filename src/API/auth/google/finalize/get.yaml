@@ -53,7 +53,7 @@ responses:
                 schema:
                     $ref: ":schema:/:User"
                 example:
-                    $ref: ":examples:/:User"
+                    $ref: ":example:/:User"
     "400":
         x-summary: Bad request
         description: |

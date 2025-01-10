@@ -1,0 +1,34 @@
+summary: 🔐 Get order data
+description: |
+    Returns full data of given order.
+
+    Prices of products, as well as address data will be freezed in time.
+
+    Product list will contain special product with `productId == 0`, which will be
+    delivery.
+tags:
+    - Orders
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+responses:
+    "200":
+        x-summary: Order retrieved
+        description: |
+            Returns fill data of order.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:Order"
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"
+    "404":
+        x-summary: Order not found
+        description: |
+            No order was found for given id.
+        content:
+            text/plain:
+                schema:
+                    type: string

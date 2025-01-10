@@ -1,0 +1,21 @@
+type: object
+properties:
+    conflicts:
+        type: array
+        items:
+            type: object
+            properties:
+                productId:
+                  type: number
+                  description: |
+                      Product identifier.
+                expectedBasketQuantity:
+                  type: number
+                  description: |
+                      Previous / requested number of product units added to the basket.
+                actualBasketQuantity:
+                  type: number
+                  description: |
+                      Actual number of product units placed to the basket / available for purchase - this number
+                      is capped by product availability in warehouse.
+

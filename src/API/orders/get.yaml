@@ -1,0 +1,62 @@
+summary: 🔐 List orders
+description: |
+    Returns list of order overviews.
+
+    Allows filtering through query params, as well as changing page size.
+tags:
+    - Orders
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+parameters:
+    - in: query
+      name: status
+      schema:
+        type: string
+        enum:
+            - Placed
+            - Preparing
+            - Sent
+            - Delivered
+      description: |
+        Filters on order status.
+
+        If missing, does not filter on order status.
+    - in: query
+      name: page
+      schema:
+        type: number
+        minimum: 1
+        maximum: "response.body.pages.lastPage"
+      description: |
+        Number of requested page.
+
+        Defaults to 1.
+    - in: query
+      name: page-size
+      required: false
+      schema:
+        type: integer
+        minimum: 5
+        maximum: 90
+      description: |
+        Parameter that allows changing default page size
+        (changing it on page > 1 will return first page in new pagination scheme).
+
+        Defaults to 10.
+responses:
+    "200":
+        x-summary: Orders retrieved
+        description: |
+            Returns list of order overviews that correspond to specified filters
+            and "cursor" representation.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:OrderList"
+    "400":
+        $ref: ":error:/:400"
+    "401":
+        $ref: ":error:/:401"
+    "417":
+        $ref: ":error:/:417"

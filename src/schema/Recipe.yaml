@@ -1,0 +1,38 @@
+type: object
+allOf:
+    - $ref: ":schema:/:RecipeOverview"
+    - type: object
+      properties:
+        steps:
+            type: array
+            items:
+                type: string
+            description: |
+                List of steps written in natural language.
+        ingredients:
+            type: array
+            items:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        description: |
+                            Name of ingredient.
+                    productId:
+                        type: number
+                        x-nullable: true
+                        description: |
+                            Product identifier, if applicable.
+                    quantity:
+                        type: string
+                        description: |
+                            Quantity of ingredient. 
+                            Should reflect product units if possible.
+                required:
+                    - name
+                    - quantity
+            description: |
+                List of ingredients.
+      required: 
+        - steps
+        - ingredients
