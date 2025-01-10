@@ -9,6 +9,14 @@ info:
 
         Please don't download OpenAPI specs from button above - it uses custom 
         functionalities and won't work with codegens.
+
+
+        #### Special icons used before action names are:
+        - 🔐 – action is secured and requires valid token cookies to be present,
+        - 🔓 – action is not secured, but requires valid token cookies to be present
+          for full capabilities / data,
+        - 🫖 – action exposes internal API for testing purposes, that would otherwise
+          be used by automated CRON jobs (or would not be required).
     x-logo:
         url: img/logo_api.jpeg
         altText: Fresh-Szop logo
