@@ -2,10 +2,28 @@
 	"name": "api-docs",
 	"type": "module",
 	"scripts": {
-		"emit": "node emit_target.js && npx @redocly/cli build-docs .target/openapi.yaml -o=index.html -t=template.hbs",
-		"open": "open index.html"
+		"emit": "node emit_target.js",
+		"redocly": "redocly build-docs .target/openapi.yaml -t=template.hbs -o=index.html",
+		"open": "open index.html",
+		"show": "live-server --port=${PORT:-3001} --open=index.html --quiet --watch=index.html",
+		"broadcast": "npm run emit && npm run redocly && npm run show",
+		"observe": "nodemon & npm run show"
 	},
 	"devDependencies": {
+		"@redocly/cli": "^1.27.1",
+		"live-server": "^1.2.0",
+		"nodemon": "^3.1.9",
 		"open": "^10.1.0"
+	},
+	"nodemonConfig": {
+		"watch": [
+			"."
+		],
+		"ignore": [
+			".target"
+		],
+		"ext": ".yaml, .js, .hsb",
+		"quiet": true,
+		"exec": "npm run emit && npm run redocly"
 	}
 }
