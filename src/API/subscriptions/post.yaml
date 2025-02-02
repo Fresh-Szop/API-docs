@@ -1,7 +1,5 @@
 summary: 🔐 Create subscription
 description: |
-    🏗️ **TODO** 👷
-
     Creates subscription based on current basket contents.
 
     Created subscription is not filled with order details and is inactive.
@@ -9,15 +7,44 @@ description: |
     Unlike basket, it does not coerce quantities into available stock and will
     error if requested quantities are not in stock, however unlike order, it does
     not immediately take product from warehouse - subscription will be translated
-    to order when its frequency ticks (and can be with subscription activation),
-    and only then quantities will be evaluated.
+    to order when its frequency ticks (subscription must be active), and only
+    then quantities will be evaluated.
 tags:
     - Subscriptions
 security:
     - jwtBearerCookie: [user]
       jwtRefreshCookie: [user]
 responses:
+    "201":
+        x-summary: Subscription created
+        description: |
+            Subscription was successfully created for all items in basket - returns
+            id of created subscription.
+            
+            As side-effect, basket will be cleared.
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        subscriptionId:
+                            type: number
+                    required:
+                        - subscriptionId
     "401":
         $ref: ":error:/:401"
     "417":
         $ref: ":error:/:417"
+    "409":
+        x-summary: Quantity conflict
+        description: |
+            Returns conflict list.
+
+            This error indicates that subscription was not placed.
+
+            This response is a fail-safe, replicating standard basket/order behavior.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:BasketConflicts"
+

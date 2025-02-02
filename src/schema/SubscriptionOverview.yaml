@@ -1,0 +1,45 @@
+type: object
+properties:
+    subscriptionId:
+        type: number
+        description: |
+            Subscription identifier.
+
+            Will never change.
+    name:
+        type: string
+        description:
+            Name of subscription.
+    creationDate:
+        type: string
+        format: date
+        description: |
+            Date of subscription creation.
+    frequency:
+        type: number
+        format: integer
+        description: |
+            Frequency of order placement, measured in weeks.
+    finalDiscountedPrice:
+        type: number
+        description: |
+            Final (current) price of all products **after** applying discounts, at the day
+            of viewing subscription. Actual final price is evaluated when order
+            is created.
+    status:
+        type: string
+        enum:
+            - Active
+            - Paused
+        description: |
+            Describes status of subscription.
+
+            Newly created subscription is not active and as such does not emit
+            new orders.
+required:
+    - subscriptionId
+    - name
+    - creationDate
+    - frequency
+    - finalDiscountedPrice
+    - status

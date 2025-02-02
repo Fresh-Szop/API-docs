@@ -18,6 +18,7 @@ parameters:
             - Preparing
             - Sent
             - Delivered
+            - Rejected
       description: |
         Filters on order status.
 

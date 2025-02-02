@@ -25,10 +25,14 @@ properties:
             - Preparing
             - Sent
             - Delivered
+            - Rejected
         description: |
             Describes status of order.
 
-            Enum values above are ordered in chronological order of order lifetime.
+            Enum values above are ordered in chronological order of order lifetime,
+            with exception of status `"Rejected"` - this status is only possible
+            to be added instead of `"Placed"` on new orders made automatically from
+            subscriptions, when there were not enough products to create such order.
 required:
     - orderId
     - updateDate

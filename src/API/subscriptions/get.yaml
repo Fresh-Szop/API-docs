@@ -1,7 +1,5 @@
 summary: 🔐 List subscriptions
 description: |
-    🏗️ **TODO** 👷
-
     Returns list of subscription overviews.
 
     Allows filtering and sorting through query params,
@@ -11,7 +9,77 @@ tags:
 security:
     - jwtBearerCookie: [user]
       jwtRefreshCookie: [user]
+parameters:
+    - in: header
+      name: X-TimeTravel-Month
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 12
+      description: |
+        Parameter that allows changing month that prices (or sometimes availability)
+        are retrieved for.
+
+        Defaults to current month of server date.
+    - in: query
+      name: status
+      schema:
+        type: string
+        enum:
+            - Active
+            - Paused
+      description: |
+        Filters on subscription status.
+
+        If missing, does not filter on subscription status.
+    - in: query
+      name: order
+      schema:
+        type: string
+        enum:
+            - name-asc
+            - name-desc
+            - price-asc
+            - price-desc
+      required: false
+      description: |
+        Parameters that controls order in which subscription are returned. 
+
+        Defaults to `name-asc`.
+    - in: query
+      name: page
+      schema:
+        type: number
+        minimum: 1
+        maximum: "response.body.pages.lastPage"
+      description: |
+        Number of requested page.
+
+        Defaults to 1.
+    - in: query
+      name: page-size
+      required: false
+      schema:
+        type: integer
+        minimum: 5
+        maximum: 90
+      description: |
+        Parameter that allows changing default page size
+        (changing it on page > 1 will return first page in new pagination scheme).
+
+        Defaults to 10.
 responses:
+    "200":
+        x-summary: Subscription retrieved
+        description: |
+            Returns list of subscription overviews that correspond to specified filters
+            and "cursor" representation.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:SubscriptionList"
+    "400":
+        $ref: ":error:/:400"
     "401":
         $ref: ":error:/:401"
     "417":

@@ -1,19 +1,69 @@
 summary: 🔐 Update subscription
 description: |
-    🏗️ **TODO** 👷
-    
     Allows to update order details for subscription.
     
-     Does not allow alterations
-    to the product list.
+    Does not allow alterations to the product list.
+
+    It is important to note, that subscription being active implies that order
+    details (address) is filled. Attempting to activate subscription either without it
+    having address set prior, or without sending address with activation signal
+    (simultaneous updates might not be present on frontend), or event trying to
+    remove address without deactivating subscription, will error.
+requestBody:
+    required: true
+    description: |
+        Request body for this endpoint **must** contain at least one property.
+    content:
+        application/json:
+            schema:
+                type: object
+                properties:
+                    status:
+                        type: string
+                        enum:
+                            - Active
+                            - Paused
+                        description: |
+                            Requests new status of subscription.
+                    addressName::
+                        type: string
+                        description: |
+                            Name of address to be set for order details.
+                            If this parameter has value of empty string, address
+                            will be cleared instead.
 tags:
     - Subscriptions
 security:
     - jwtBearerCookie: [user]
       jwtRefreshCookie: [user]
 responses:
+    "200":
+        x-summary: Subscription updated
+        description: |
+            Subscription was updated to selected status.
+
+            Will fill appropriate dates as current date.
+
+            Returns new subscription overview.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:SubscriptionOverview"
     "401":
         $ref: ":error:/:401"
     "417":
         $ref: ":error:/:417"
+    "422":
+        x-summary: Invalid parameter values
+        description: |
+            Required parameters are present and contain valid data, but
+            assertions are failed, for example when requested status would collide
+            with empty order details.
+
+            Returns error message.
+        content:
+            text/plain:
+                schema:
+                    type: string
+
 

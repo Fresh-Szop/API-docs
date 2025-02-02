@@ -1,8 +1,26 @@
 summary: 🫖 Get list of all subscription
 description: |
-    🏗️ **TODO** 👷
-
     Returns list of subscriptions id, their frequency and next order date for all users.
 tags:
     - Subscriptions
 responses:
+    "200":
+        x-summary: Subscriptions retrieved
+        description: |
+            Returns list of all subscription identifiers and their next order emit date.
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        subscriptionId:
+                            type: number
+                            description: |
+                                Subscription identifier.
+
+                                Will never change.
+                        nextOrderDate:
+                            type: string
+                            format: date
+                            description: |
+                                Date of next expected order emission date.

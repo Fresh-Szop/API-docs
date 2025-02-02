@@ -1,8 +1,46 @@
 summary: 🫖 Force subscription tick
 description: |
-    🏗️ **TODO** 👷
-    
-    Forces ticking all subscription, tricking server into specific date.
+    Forces ticking for subscription, tricking server into specific date.
 tags:
     - Subscriptions
 responses:
+    "201":
+        x-summary: Order emitted
+        description: |
+            Returns id of successfully created order.
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        orderId:
+                            type: number
+                            description: |
+                                Order identifier.
+
+                                Will never change.
+    "404":
+        x-summary: Subscription not found
+        description: |
+            No address was found for given name.
+        content:
+            text/plain:
+                schema:
+                    type: string
+    "409":
+        x-summary: Invalid order emitted
+        description: |
+            Returns id of created order. Order is created with status `"Rejected"`,
+            as there must exist conflicts with requested quantities and availability
+            in warehouse.
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        orderId:
+                            type: number
+                            description: |
+                                Order identifier.
+
+                                Will never change.

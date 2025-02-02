@@ -15,7 +15,7 @@ responses:
     "200":
         x-summary: Order retrieved
         description: |
-            Returns fill data of order.
+            Returns full data of order.
         content:
             application/json:
                 schema:

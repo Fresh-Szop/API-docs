@@ -1,0 +1,11 @@
+type: object
+properties:
+    subscriptions:
+        type: array
+        items:
+            $ref: ":schema:/:SubscriptionOverview"
+    pages:
+        $ref: ":schema:/:PagesCursor"
+required:
+    - subscriptions
+    - pages

@@ -1,16 +1,37 @@
 summary: 🔐 Get subscription data
 description: |
-    🏗️ **TODO** 👷
-    
     Returns full data of subscription.
+
+    Prices of products will only corelate to current prices, not the ones that
+    will be used in final order.
+    
+    Product list will contain special product with `productId == 0`, which will be
+    delivery. Product quantities only reflect quantities specified when
+    subscription was created and are not updated to show current availability.
 tags:
     - Subscriptions
 security:
     - jwtBearerCookie: [user]
       jwtRefreshCookie: [user]
 responses:
+    "200":
+        x-summary: Subscription retrieved
+        description: |
+            Returns full data of subscription.
+        content:
+            application/json:
+                schema:
+                    $ref: ":schema:/:Subscription"
     "401":
         $ref: ":error:/:401"
     "417":
         $ref: ":error:/:417"
+    "404":
+        x-summary: Subscription not found
+        description: |
+            No subscription was found for given id.
+        content:
+            text/plain:
+                schema:
+                    type: string
 

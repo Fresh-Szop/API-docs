@@ -1,0 +1,28 @@
+type: object
+allOf:
+    - $ref: ":schema:/:SubscriptionOverview"
+    - type: object
+      properties:
+        addressName:
+            type: string
+            description: |
+                Descriptive name of address (which also is identifier).
+
+                Initially not filled.
+        products:
+            type: array
+            items:
+                $ref: ":schema:/:BasketProduct"
+            description: |
+                Listing of products present in subscription.
+
+                Prices of products are current prices. Quantities are only showing
+                number which was specified initially.
+        finalBasePrice:
+            type: number
+            description: |
+                Final (current) price of all products **before** applying discounts.
+      required:
+        - address
+        - products
+        - finalBasePrice

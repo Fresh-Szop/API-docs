@@ -5,6 +5,8 @@ properties:
         description: |
             Descriptive name of address - this name will be used in selections by user
             and as such it must be unique and not used by any other address.
+
+            Blank identifiers are not allowed.
     firstName:
         type: string
         description: |

@@ -1,0 +1,20 @@
+summary: 🔐 Logout
+description: |
+    Performs logout on server side.
+
+    Calling this endpoint is required to fully remove http-only cookies containing
+    authentication tokens.
+tags:
+    - Authentication
+security:
+    - jwtBearerCookie: [user]
+      jwtRefreshCookie: [user]
+responses:
+    "204":
+        x-summary: Logout
+        description: |
+            Successfully removed authentication token cookies.
+
+            Response is empty.
+    "401":
+        $ref: ":error:/:401"

@@ -28,6 +28,9 @@ info:
 
 paths:
     # Authentication
+    /auth/:
+        delete:
+            $ref: ":API:/auth/:delete"
     /auth/google:
         get:
             $ref: ":API:/auth/google/:get"
