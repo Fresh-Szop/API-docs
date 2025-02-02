@@ -20,13 +20,13 @@ requestBody:
             schema:
                 type: object
                 properties:
-                    availableUnits:
+                    addedUnits:
                         type: number
                         minimum: 0
                         description: |
-                            Exact number of units that should be available in warehouse.
+                            Exact number of units that should be added into warehouse.
                 required:
-                    - availableUnits
+                    - addedUnits
 responses:
     "200":
         x-summary: Product retrieved
