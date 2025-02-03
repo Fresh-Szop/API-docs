@@ -11,6 +11,9 @@ requestBody:
     description: |
         Address is identified by `addressName`↔`userId` pair - as such, posted `addressName`
         must be unique for given user and not yet represent existing address.
+
+        **Important:** in order to clear `secondAddressLine`, `null` must be passed
+        its value, as missing field means *do not update*.
     content:
         application/json:
             schema:

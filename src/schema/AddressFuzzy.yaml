@@ -24,6 +24,7 @@ properties:
         description: |
             Second line of address - if applicable, usually apartment number and other
             specificity descriptors.
+        x-nullable: true
     postalCode:
         type: string
         format: /\d{2}-\d{3}/
