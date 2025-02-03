@@ -12,7 +12,7 @@ properties:
         description: |
             Date of last order update.
 
-            This will be `orderDate`, `preparationDate`, `sentDate` or `deliveredDate`
+            This will be `orderDate`, `preparationDate`, `sentDate` or `deliveryDate`
             (most recent one).
     finalDiscountedPrice:
         type: number
@@ -21,17 +21,17 @@ properties:
     status:
         type: string
         enum:
-            - Placed
-            - Preparing
-            - Sent
-            - Delivered
-            - Rejected
+            - placed
+            - preparing
+            - sent
+            - delivered
+            - rejected
         description: |
             Describes status of order.
 
             Enum values above are ordered in chronological order of order lifetime,
-            with exception of status `"Rejected"` - this status is only possible
-            to be added instead of `"Placed"` on new orders made automatically from
+            with exception of status `"rejected"` - this status is only possible
+            to be added instead of `"placed"` on new orders made automatically from
             subscriptions, when there were not enough products to create such order.
 required:
     - orderId

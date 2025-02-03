@@ -6,10 +6,6 @@ properties:
             Subscription identifier.
 
             Will never change.
-    name:
-        type: string
-        description:
-            Name of subscription.
     creationDate:
         type: string
         format: date
@@ -29,8 +25,8 @@ properties:
     status:
         type: string
         enum:
-            - Active
-            - Paused
+            - active
+            - paused
         description: |
             Describes status of subscription.
 
@@ -38,7 +34,6 @@ properties:
             new orders.
 required:
     - subscriptionId
-    - name
     - creationDate
     - frequency
     - finalDiscountedPrice

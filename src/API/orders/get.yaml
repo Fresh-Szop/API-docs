@@ -14,11 +14,11 @@ parameters:
       schema:
         type: string
         enum:
-            - Placed
-            - Preparing
-            - Sent
-            - Delivered
-            - Rejected
+            - placed
+            - preparing
+            - sent
+            - delivered
+            - rejected
       description: |
         Filters on order status.
 

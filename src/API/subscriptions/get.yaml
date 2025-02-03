@@ -26,8 +26,8 @@ parameters:
       schema:
         type: string
         enum:
-            - Active
-            - Paused
+            - active
+            - paused
       description: |
         Filters on subscription status.
 

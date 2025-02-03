@@ -21,8 +21,8 @@ requestBody:
                     status:
                         type: string
                         enum:
-                            - Active
-                            - Paused
+                            - active
+                            - paused
                         description: |
                             Requests new status of subscription.
                     addressName::

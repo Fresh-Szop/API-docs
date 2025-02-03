@@ -18,7 +18,7 @@ allOf:
         rejectionReason:
             $ref: ":schema:/:BasketConflicts"
             description: |
-                Optional field, that will be present only if `status == "Rejected"`.
+                Optional field, that will be present only if `status == "rejected"`.
 
                 In such case, it will describe what products caused order to be rejected.
                 Otherwise this field is missing, as rejection of normal orders happens

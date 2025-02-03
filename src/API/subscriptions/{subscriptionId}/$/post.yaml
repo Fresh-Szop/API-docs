@@ -30,7 +30,7 @@ responses:
     "409":
         x-summary: Invalid order emitted
         description: |
-            Returns id of created order. Order is created with status `"Rejected"`,
+            Returns id of created order. Order is created with status `"rejected"`,
             as there must exist conflicts with requested quantities and availability
             in warehouse.
         content:
