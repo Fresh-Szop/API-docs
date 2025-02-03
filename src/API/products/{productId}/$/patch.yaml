@@ -1,6 +1,6 @@
 summary: 🫖 Update product quantity
 description: |
-    Returns full, updated data of given product.
+    Returns updated availability of given product.
 tags:
     - Products
 parameters:
@@ -35,9 +35,18 @@ responses:
         content:
             application/json:
                 schema:
-                    $ref: ":schema:/:Product"
-                example:
-                    $ref: ":example:/:Product"
+                    type: object
+                    properties:
+                        productId:
+                            type: number
+                            description: |
+                                Product identifier.
+
+                                Will never change.
+                        availableUnits:
+                            type: number
+                            description: |
+                                Exact number of units currently available in warehouse.
     "400":
         $ref: ":error:/:400"
     "404":
