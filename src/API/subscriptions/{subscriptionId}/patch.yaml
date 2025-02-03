@@ -25,7 +25,7 @@ requestBody:
                             - paused
                         description: |
                             Requests new status of subscription.
-                    addressName::
+                    addressName:
                         type: string
                         description: |
                             Name of address to be set for order details.

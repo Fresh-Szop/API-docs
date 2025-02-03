@@ -9,6 +9,21 @@ tags:
 security:
     - jwtBearerCookie: [user]
       jwtRefreshCookie: [user]
+requestBody:
+    required: true
+    description: |
+        Address is required to place an order.
+    content:
+        application/json:
+            schema: 
+                type: object
+                properties:
+                    addressName:
+                        type: string
+                        description: |
+                            Name of address to be set for order details.
+                            If this parameter has value of empty string, address
+                            will be cleared instead.
 responses:
     "201":
         x-summary: Order placed
