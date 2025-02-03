@@ -7,7 +7,7 @@ properties:
         type: string
         format: email
         description: User email
-    name:
+    firstName:
         type: string
         description: User's first name
     lastName:
