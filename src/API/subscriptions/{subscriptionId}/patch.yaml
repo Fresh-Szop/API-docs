@@ -70,5 +70,11 @@ responses:
             text/plain:
                 schema:
                     type: string
-
-
+    "403":
+        x-summary: Subscription access forbidden
+        description: |
+            A subscription was found for given id, but it does not belong to current user.
+        content:
+            text/plain:
+                schema:
+                    type: string

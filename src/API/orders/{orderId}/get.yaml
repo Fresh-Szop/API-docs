@@ -32,3 +32,11 @@ responses:
             text/plain:
                 schema:
                     type: string
+    "403":
+        x-summary: Order access forbidden
+        description: |
+            An order was found for given id, but it does not belong to current user.
+        content:
+            text/plain:
+                schema:
+                    type: string
