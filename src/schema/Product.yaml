@@ -39,7 +39,7 @@ properties:
             This data should not be displayed to the user, however dividing
             price by this value can give price-per-kilogram, which probably
             should be shown.
-    typicalUnitWight:
+    typicalUnitWeight:
         type: string
         description: |
             This is human-readable description of expected range of weight
