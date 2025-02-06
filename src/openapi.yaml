@@ -102,6 +102,9 @@ paths:
         get:
             $ref: ":API:/orders/{orderId}/:get"
     # Orders @ Internal
+    /orders/$:
+        get:
+            $ref: ":API:/orders/$/:get"
     /orders/{orderId}/$:
         patch:
             $ref: ":API:/orders/{orderId}/$/:patch"

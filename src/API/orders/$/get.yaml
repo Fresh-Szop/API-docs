@@ -1,0 +1,16 @@
+summary: 🫖 Get list of all orders
+description: |
+    Returns list of order id, and their overview for all users.
+tags:
+    - Orders
+responses:
+    "200":
+        x-summary: Orders retrieved
+        description: |
+            Returns list of all order overviews.
+        content:
+            application/json:
+                schema:
+                    type: array
+                    items:
+                        $ref: ":schema:/:OrderOverview"

@@ -1,4 +1,4 @@
-summary: 🫖 Get list of all subscription
+summary: 🫖 Get list of all subscriptions
 description: |
     Returns list of subscriptions id, their frequency and next order date for all users.
 tags:
@@ -11,16 +11,18 @@ responses:
         content:
             application/json:
                 schema:
-                    type: object
-                    properties:
-                        subscriptionId:
-                            type: number
-                            description: |
-                                Subscription identifier.
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            subscriptionId:
+                                type: number
+                                description: |
+                                    Subscription identifier.
 
-                                Will never change.
-                        nextOrderDate:
-                            type: string
-                            format: date
-                            description: |
-                                Date of next expected order emission date.
+                                    Will never change.
+                            nextOrderDate:
+                                type: string
+                                format: date
+                                description: |
+                                    Date of next expected order emission date.
