@@ -33,20 +33,6 @@ parameters:
 
         If missing, does not filter on subscription status.
     - in: query
-      name: order
-      schema:
-        type: string
-        enum:
-            - name-asc
-            - name-desc
-            - price-asc
-            - price-desc
-      required: false
-      description: |
-        Parameters that controls order in which subscription are returned. 
-
-        Defaults to `name-asc`.
-    - in: query
       name: page
       schema:
         type: number
