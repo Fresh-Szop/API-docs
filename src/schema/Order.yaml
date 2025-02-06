@@ -8,7 +8,7 @@ allOf:
         products:
             type: array
             items:
-                $ref: ":schema:/:BasketProduct"
+                $ref: ":schema:/:OrderProduct"
             description: |
                 Listing of products present in order.
         finalBasePrice:

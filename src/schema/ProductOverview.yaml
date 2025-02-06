@@ -1,0 +1,54 @@
+type: object
+properties:
+    productId:
+        type: number
+        description: |
+            Product identifier.
+
+            Will never change.
+    name:
+        type: string
+        description: |
+            Name of product.
+    producer:
+        type: string
+        description: |
+            Name of product producer.
+    category:
+        type: string
+        enum:
+            - vegetable
+            - fruit
+            - ingredients
+        description: |
+            Category to which product belongs.
+    unit:
+        type: string
+        description: |
+            Describes unit in which product is being sold.
+    basePrice:
+        type: number
+        minimum: 0.01
+        description: |
+            Base price of product, before applying discounts.
+    discountedPrice:
+        type: number
+        maximum: "basePrice"
+        description: |
+            Discounted price of product.
+            
+            If present, then `discount` will be present as well.
+    basketQuantity:
+        type: number
+        minimum: 0
+        description: |
+            Indicates how many units of this products are currently added to
+            the basket.
+required:
+    - productId
+    - name
+    - producer
+    - category
+    - unit
+    - basePrice
+    - basketQuantity
